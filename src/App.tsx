@@ -174,8 +174,7 @@ function App() {
         </section>
 
         <footer className="py-10 text-center text-gray-500 text-sm pointer-events-auto border-t border-white/5 mt-10">
-          <p>© 2026 Kymatica AI | Arquitecturas de Persuasión y Eficiencia Operativa para E-commerce.</p>
-          <p className="mt-2 text-xs opacity-50">A responsive & semantic Web3D Experience.</p>
+          <p>© 2026 Studio Seikan | Arquitecturas de Persuasión y Eficiencia Operativa para E-commerce.</p>
         </footer>
       </main>
     </div>
