@@ -7,14 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          dark: '#111111',
-          neon: '#c4ff23',
-        }
+        ink: '#12202B',
+        ink2: '#1B2B38',
+        cream: '#ECE7DC',
+        rust: '#A6362A',
+        rustLight: '#C2534A',
+        slate: '#93A0A8',
+        green: '#3E6E5E',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-      }
+        serif: ['Fraunces', 'serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
+        sans: ['"IBM Plex Sans"', 'sans-serif'],
+      },
     },
   },
   plugins: [],
