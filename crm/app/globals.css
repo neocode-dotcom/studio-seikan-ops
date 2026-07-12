@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Sistema visual de Studio Seikan (docs/01-marca-y-diseno.md).
+   Paleta tinta/papel/rojo-sello. Tipografías: Fraunces (display),
+   IBM Plex Sans (cuerpo), IBM Plex Mono (datos/labels). */
+
+:root {
+  --ink: #12202b;
+  --ink-2: #1b2b38;
+  --paper: #ece7dc;
+  --stamp: #a6362a;
+  --stamp-light: #c2534a;
+  --jade: #3e6e5e;
+  --muted: #93a0a8;
+  --muted-dark: #5c6a72;
+  --border: rgba(236, 231, 220, 0.14);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-paper: var(--paper);
+  --color-stamp: var(--stamp);
+  --color-stamp-light: var(--stamp-light);
+  --color-jade: var(--jade);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+/* Scrollbar sutil para el kanban horizontal */
+.scroll-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(236, 231, 220, 0.18);
+  border-radius: 4px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- Primitivas de UI reutilizables (paleta de marca docs/01) --- */
+
+.mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+/* Etiquetas tipo "número de expediente" */
+.label-field {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Campos de formulario sobre fondo oscuro */
+.field {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.7rem;
+  color: var(--paper);
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--stamp-light);
+}
+.field::placeholder {
+  color: var(--muted-dark);
+}
+select.field option {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+  border: 1px solid transparent;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--stamp);
+  color: var(--paper);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--stamp-light);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--paper);
+}
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+.btn-jade {
+  background: var(--jade);
+  color: var(--paper);
+}
+.btn-jade:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+/* Tarjeta base sobre fondo oscuro */
+.card {
+  background: var(--ink-2);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+/* Badge "Estancado": borde/etiqueta rojo-sello */
+.badge-estancado {
+  border: 1px solid var(--stamp);
+  color: var(--stamp-light);
+  background: rgba(166, 54, 42, 0.1);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.05rem 0.35rem;
+  border-radius: 0.25rem;
+}
+
+/* Overlay de modales/drawers */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 17, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 40;
+}

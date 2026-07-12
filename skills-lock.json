@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "crm-builder": {
+      "source": "customware-ai/skills",
+      "sourceType": "github",
+      "skillPath": "skills/crm-builder/SKILL.md",
+      "computedHash": "cfff11e506a24a74e327df13422c6b247c64f19a03309ecb676efbb50332b55c"
+    }
+  }
+}
