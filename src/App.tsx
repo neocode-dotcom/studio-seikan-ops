@@ -6,6 +6,7 @@ import Cumplimiento from './components/Cumplimiento';
 import Proceso from './components/Proceso';
 import Auditoria from './components/Auditoria';
 import Footer from './components/Footer';
+import CalendlyBadge from './components/CalendlyBadge';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Proceso />
       <Auditoria />
       <Footer />
+      <CalendlyBadge />
     </div>
   );
 }

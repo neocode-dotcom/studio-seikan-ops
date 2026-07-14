@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
-import CalendlyEmbed, { CALENDLY_URL } from './CalendlyEmbed';
+import { CALENDLY_URL, openCalendlyPopup, useCalendlyScheduled } from '../hooks/useCalendly';
 
 const Auditoria = () => {
   const { ref: leftRef, visible: leftVisible } = useReveal<HTMLDivElement>();
   const { ref: cardRef, visible: cardVisible } = useReveal<HTMLDivElement>();
   const [scheduled, setScheduled] = useState(false);
+  useCalendlyScheduled(() => setScheduled(true));
 
   return (
     <section id="auditoria" className="px-[clamp(20px,5vw,64px)] py-[clamp(64px,8vw,110px)] bg-ink2">
@@ -38,30 +39,43 @@ const Auditoria = () => {
 
         <div
           ref={cardRef}
-          className={`relative bg-cream text-ink2 p-[clamp(16px,2vw,24px)] rounded-sm shadow-[0_26px_50px_rgba(0,0,0,.34)] transition-all duration-700 ease-out delay-[80ms] ${
+          className={`relative bg-cream text-ink2 p-[clamp(32px,4vw,48px)] rounded-sm shadow-[0_26px_50px_rgba(0,0,0,.34)] text-center flex flex-col items-center gap-4 transition-all duration-700 ease-out delay-[80ms] ${
             cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-7'
           }`}
         >
-          {scheduled && (
-            <div className="flex items-center gap-2.5 mb-3 px-3.5 py-3 bg-green/10 border border-green/30 rounded-sm text-green text-sm">
-              <span className="text-base">✓</span> Cita agendada — revisa tu correo para la confirmación.
-            </div>
+          {scheduled ? (
+            <>
+              <span className="flex items-center justify-center w-14 h-14 rounded-full bg-green/15 text-green text-2xl">✓</span>
+              <div className="font-serif font-medium text-xl text-ink2">Cita agendada</div>
+              <p className="text-sm leading-[1.6] text-[#3E4a54] max-w-[280px]">
+                Revisa tu correo para la confirmación y los detalles de la sesión.
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="font-mono text-[11px] tracking-[2.4px] uppercase text-rust">Agenda en un clic</div>
+              <p className="text-[15px] leading-[1.6] text-[#3E4a54] max-w-[300px]">
+                Elige el día y la hora que te acomoden — el calendario se abre en una ventana emergente.
+              </p>
+              <button
+                type="button"
+                onClick={() => openCalendlyPopup()}
+                className="mt-1 px-7 py-[15px] bg-rust text-cream rounded-sm font-mono text-[13px] tracking-[1.4px] uppercase cursor-pointer hover:bg-rustLight transition-colors"
+              >
+                Agendar mi auditoría →
+              </button>
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[12px] text-[#7a8288] underline hover:text-rust"
+              >
+                O ábrelo en una pestaña nueva
+              </a>
+            </>
           )}
-          <CalendlyEmbed onScheduled={() => setScheduled(true)} />
-          <p className="text-[11.5px] leading-[1.5] text-[#7a8288] mt-2 px-1">
+          <p className="text-[11px] leading-[1.5] text-[#7a8288] mt-1">
             Tus datos se tratan conforme a la LFPDPPP. Calendly gestiona la confirmación y los recordatorios de tu cita.
-          </p>
-          <p className="text-[11.5px] leading-[1.5] text-[#7a8288] mt-1.5 px-1">
-            ¿No carga el calendario?{' '}
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-rust hover:text-rustLight"
-            >
-              Ábrelo en una pestaña nueva
-            </a>
-            .
           </p>
         </div>
       </div>
