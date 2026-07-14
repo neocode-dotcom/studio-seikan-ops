@@ -28,7 +28,12 @@ const CalendlyEmbed = ({ onScheduled }: CalendlyEmbedProps) => {
     if (!container) return;
 
     const init = () => {
-      window.Calendly?.initInlineWidget({
+      if (!window.Calendly || !container.isConnected) return;
+      // Limpia antes de inicializar: si este efecto corre más de una vez
+      // (React StrictMode en desarrollo re-ejecuta efectos al montar) evita
+      // que Calendly agregue un segundo widget dentro del mismo contenedor.
+      container.innerHTML = '';
+      window.Calendly.initInlineWidget({
         url: CALENDLY_EMBED_URL,
         parentElement: container,
         resize: true,
@@ -43,7 +48,7 @@ const CalendlyEmbed = ({ onScheduled }: CalendlyEmbedProps) => {
     const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${CALENDLY_SCRIPT_SRC}"]`);
     if (existingScript) {
       existingScript.addEventListener('load', init, { once: true });
-      return;
+      return () => existingScript.removeEventListener('load', init);
     }
 
     const script = document.createElement('script');
@@ -51,6 +56,7 @@ const CalendlyEmbed = ({ onScheduled }: CalendlyEmbedProps) => {
     script.async = true;
     script.addEventListener('load', init, { once: true });
     document.body.appendChild(script);
+    return () => script.removeEventListener('load', init);
   }, []);
 
   useEffect(() => {
